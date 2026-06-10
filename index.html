@@ -10,10 +10,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <noscript>
+    <style>
+      .video-intro { display: none; }
+      .site-content { opacity: 1; visibility: visible; transform: none; }
+      body.intro-active { overflow: auto; }
+    </style>
+  </noscript>
 </head>
 
-<body>
-  <header class="hero" aria-labelledby="hero-title">
+<body class="intro-active">
+  <section id="video-intro" class="video-intro" aria-label="Introdução em vídeo">
+    <video id="intro-video" class="intro-video" autoplay muted playsinline preload="auto">
+      <source src="assets/intro.mp4" type="video/mp4">
+    </video>
+
+    <button type="button" class="intro-skip" id="intro-skip">Pular introdução</button>
+  </section>
+
+  <div class="site-content" id="site-content">
+    <header class="hero" aria-labelledby="hero-title">
     <img
       src="assets/gerbera-hero-pink-air.png"
       alt=""
@@ -298,6 +315,7 @@
       </div>
     </section>
   </main>
+  </div>
 
   <script>
     const io = new IntersectionObserver(
@@ -308,6 +326,75 @@
     );
 
     document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
+
+    (() => {
+      const body = document.body;
+      const intro = document.getElementById('video-intro');
+      const video = document.getElementById('intro-video');
+      const skipButton = document.getElementById('intro-skip');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!intro || !video) {
+        body.classList.remove('intro-active');
+        body.classList.add('site-ready');
+        return;
+      }
+
+      let introFinished = false;
+      let loadFallback;
+      let stallFallback;
+      let safetyFallback;
+      const clearTimers = () => {
+        window.clearTimeout(loadFallback);
+        window.clearTimeout(stallFallback);
+        window.clearTimeout(safetyFallback);
+      };
+
+      const revealSite = () => {
+        if (introFinished) return;
+        introFinished = true;
+        clearTimers();
+
+        video.pause();
+        intro.classList.add('is-leaving');
+        body.classList.remove('intro-active');
+        body.classList.add('site-ready');
+
+        window.setTimeout(() => {
+          intro.remove();
+        }, reduceMotion ? 80 : 1600);
+      };
+
+      if (reduceMotion) {
+        revealSite();
+        return;
+      }
+
+      video.addEventListener('ended', revealSite, { once: true });
+      video.addEventListener('error', revealSite, { once: true });
+      skipButton?.addEventListener('click', revealSite);
+
+      video.addEventListener('playing', () => {
+        window.clearTimeout(loadFallback);
+      });
+
+      video.addEventListener('waiting', () => {
+        window.clearTimeout(stallFallback);
+        stallFallback = window.setTimeout(revealSite, 8000);
+      });
+
+      video.addEventListener('canplay', () => {
+        window.clearTimeout(stallFallback);
+      });
+
+      loadFallback = window.setTimeout(revealSite, 7000);
+      safetyFallback = window.setTimeout(revealSite, 45000);
+
+      const playAttempt = video.play();
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(revealSite);
+      }
+    })();
   </script>
 </body>
 </html>
