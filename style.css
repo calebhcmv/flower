@@ -112,13 +112,14 @@ body.site-ready .site-content {
 }
 
 .intro-embed {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: max(100vw, 177.7778vh);
-  height: max(56.25vw, 100vh);
-  transform: translate(-50%, -50%);
+  position: relative;
+  width: min(calc(100vw - 2rem), 34rem);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
   background: #000;
+  border: 1px solid rgba(255, 253, 251, 0.62);
+  border-radius: clamp(1.15rem, 5vw, 2rem);
+  box-shadow: 0 1.25rem 3.5rem rgba(36, 29, 27, 0.12);
 }
 
 .intro-iframe {
@@ -127,44 +128,12 @@ body.site-ready .site-content {
   width: 100%;
   height: 100%;
   border: 0;
-  object-fit: cover;
 }
 
-.intro-skip {
-  position: absolute;
-  right: max(1rem, env(safe-area-inset-right, 0px));
-  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-  z-index: 2;
-  border: 1px solid rgba(255, 253, 251, 0.58);
-  border-radius: 999px;
-  padding: 0.72rem 1rem;
-  background: rgba(250, 247, 242, 0.72);
-  color: var(--text-primary);
-  font: inherit;
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  line-height: 1;
-  text-transform: uppercase;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
-}
-
-.intro-skip:hover,
-.intro-skip:focus-visible {
-  background: var(--surface);
-  border-color: rgba(243, 199, 207, 0.76);
-  color: var(--primary-dark);
-}
-
-.intro-skip:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 0.25rem;
+@media (min-width: 760px) {
+  .intro-embed {
+    width: min(78vw, 58rem);
+  }
 }
 
 /* ─────────────────────────────────────────────

@@ -11,7 +11,6 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   const body = document.body;
   const intro = document.getElementById('video-intro');
   const iframe = document.getElementById('intro-vimeo');
-  const skipButton = document.getElementById('intro-skip');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!intro || !iframe) {
@@ -51,8 +50,6 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     }, reduceMotion ? 80 : 1600);
   };
 
-  skipButton?.addEventListener('click', revealSite);
-
   if (!window.Vimeo?.Player) {
     safetyFallback = window.setTimeout(revealSite, 45000);
     return;
@@ -77,7 +74,8 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   safetyFallback = window.setTimeout(revealSite, 60000);
 
   player.ready()
-    .then(() => player.setMuted(true).catch(() => {}))
+    .then(() => player.setVolume(1).catch(() => {}))
+    .then(() => player.setMuted(false).catch(() => {}))
     .then(() => player.play())
     .catch(() => {
       safetyFallback = window.setTimeout(revealSite, 12000);
