@@ -22,17 +22,28 @@
 
 <body class="intro-active">
   <section id="video-intro" class="video-intro" aria-label="Introdução em vídeo">
-    <div class="intro-embed">
-      <iframe
-        id="intro-vimeo"
-        class="intro-iframe"
-        src="https://player.vimeo.com/video/1178973296?badge=0&amp;autopause=0&amp;player_id=intro-vimeo&amp;app_id=58479&amp;autoplay=1&amp;muted=0&amp;playsinline=1"
-        title="202603311150"
-        frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-        allowfullscreen
-        referrerpolicy="strict-origin-when-cross-origin"
-      ></iframe>
+    <div class="intro-panel">
+      <p class="intro-kicker">Ative o som</p>
+
+      <div class="intro-embed">
+        <iframe
+          id="intro-vimeo"
+          class="intro-iframe"
+          src="https://player.vimeo.com/video/1178973296?badge=0&amp;autopause=0&amp;player_id=intro-vimeo&amp;app_id=58479&amp;autoplay=0&amp;muted=0&amp;playsinline=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;pip=0&amp;dnt=1"
+          title="202603311150"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+
+        <button type="button" class="intro-start" id="intro-start">
+          <span class="intro-start-icon" aria-hidden="true"></span>
+          <span>Toque para assistir com som</span>
+        </button>
+      </div>
+
+      <p class="intro-note">O site será revelado ao final do vídeo.</p>
     </div>
   </section>
 

@@ -11,15 +11,17 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   const body = document.body;
   const intro = document.getElementById('video-intro');
   const iframe = document.getElementById('intro-vimeo');
+  const startButton = document.getElementById('intro-start');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!intro || !iframe) {
+  if (!intro || !iframe || !startButton) {
     body.classList.remove('intro-active');
     body.classList.add('site-ready');
     return;
   }
 
   let introFinished = false;
+  let introStarted = false;
   let loadFallback;
   let stallFallback;
   let safetyFallback;
@@ -50,8 +52,33 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     }, reduceMotion ? 80 : 1600);
   };
 
+  const startIntro = () => {
+    if (introStarted) return;
+    introStarted = true;
+    intro.classList.add('is-started');
+    startButton.disabled = true;
+
+    if (!player) {
+      safetyFallback = window.setTimeout(revealSite, 12000);
+      return;
+    }
+
+    loadFallback = window.setTimeout(revealSite, 15000);
+    safetyFallback = window.setTimeout(revealSite, 60000);
+
+    player.setVolume(1)
+      .catch(() => {})
+      .then(() => player.setMuted(false).catch(() => {}))
+      .then(() => player.play())
+      .catch(() => {
+        safetyFallback = window.setTimeout(revealSite, 12000);
+      });
+  };
+
+  startButton.addEventListener('click', startIntro);
+
   if (!window.Vimeo?.Player) {
-    safetyFallback = window.setTimeout(revealSite, 45000);
+    safetyFallback = window.setTimeout(revealSite, 90000);
     return;
   }
 
@@ -70,14 +97,7 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     window.clearTimeout(stallFallback);
   });
 
-  loadFallback = window.setTimeout(revealSite, 15000);
-  safetyFallback = window.setTimeout(revealSite, 60000);
-
-  player.ready()
-    .then(() => player.setVolume(1).catch(() => {}))
-    .then(() => player.setMuted(false).catch(() => {}))
-    .then(() => player.play())
-    .catch(() => {
-      safetyFallback = window.setTimeout(revealSite, 12000);
-    });
+  player.ready().catch(() => {
+    safetyFallback = window.setTimeout(revealSite, 12000);
+  });
 })();
