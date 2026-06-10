@@ -22,9 +22,18 @@
 
 <body class="intro-active">
   <section id="video-intro" class="video-intro" aria-label="Introdução em vídeo">
-    <video id="intro-video" class="intro-video" autoplay muted playsinline preload="auto">
-      <source src="assets/intro.mp4" type="video/mp4">
-    </video>
+    <div class="intro-embed" aria-hidden="true">
+      <iframe
+        id="intro-vimeo"
+        class="intro-iframe"
+        src="https://player.vimeo.com/video/1178973296?badge=0&amp;autopause=0&amp;player_id=intro-vimeo&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;playsinline=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0"
+        title="202603311150"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
 
     <button type="button" class="intro-skip" id="intro-skip">Pular introdução</button>
   </section>
@@ -317,6 +326,7 @@
   </main>
   </div>
 
+  <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
     const io = new IntersectionObserver(
       entries => entries.forEach(entry => {
@@ -330,11 +340,11 @@
     (() => {
       const body = document.body;
       const intro = document.getElementById('video-intro');
-      const video = document.getElementById('intro-video');
+      const iframe = document.getElementById('intro-vimeo');
       const skipButton = document.getElementById('intro-skip');
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (!intro || !video) {
+      if (!intro || !iframe) {
         body.classList.remove('intro-active');
         body.classList.add('site-ready');
         return;
@@ -344,6 +354,8 @@
       let loadFallback;
       let stallFallback;
       let safetyFallback;
+      let player;
+
       const clearTimers = () => {
         window.clearTimeout(loadFallback);
         window.clearTimeout(stallFallback);
@@ -355,7 +367,11 @@
         introFinished = true;
         clearTimers();
 
-        video.pause();
+        if (player) {
+          player.pause().catch(() => {});
+          player.unload().catch(() => {});
+        }
+
         intro.classList.add('is-leaving');
         body.classList.remove('intro-active');
         body.classList.add('site-ready');
@@ -370,30 +386,35 @@
         return;
       }
 
-      video.addEventListener('ended', revealSite, { once: true });
-      video.addEventListener('error', revealSite, { once: true });
       skipButton?.addEventListener('click', revealSite);
 
-      video.addEventListener('playing', () => {
+      if (!window.Vimeo?.Player) {
+        loadFallback = window.setTimeout(revealSite, 7000);
+        return;
+      }
+
+      player = new window.Vimeo.Player(iframe);
+
+      player.on('ended', revealSite);
+      player.on('error', revealSite);
+      player.on('play', () => {
         window.clearTimeout(loadFallback);
       });
-
-      video.addEventListener('waiting', () => {
+      player.on('bufferstart', () => {
         window.clearTimeout(stallFallback);
         stallFallback = window.setTimeout(revealSite, 8000);
       });
-
-      video.addEventListener('canplay', () => {
+      player.on('bufferend', () => {
         window.clearTimeout(stallFallback);
       });
 
       loadFallback = window.setTimeout(revealSite, 7000);
       safetyFallback = window.setTimeout(revealSite, 45000);
 
-      const playAttempt = video.play();
-      if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(revealSite);
-      }
+      player.ready()
+        .then(() => player.setMuted(true).catch(() => {}))
+        .then(() => player.play())
+        .catch(revealSite);
     })();
   </script>
 </body>
