@@ -1,0 +1,2 @@
+# Image assets are supplied manually and should not be committed as binary files.
+/assets/
