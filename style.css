@@ -143,17 +143,20 @@ body.site-ready .site-content {
 }
 
 .intro-embed {
+  --intro-radius: clamp(0.85rem, 3.2vw, 1.45rem);
+
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  clip-path: inset(0 round var(--intro-radius));
   background: #000;
-  border: 1px solid rgba(255, 253, 251, 0.68);
-  border-radius: clamp(1.2rem, 5vw, 2.15rem);
+  border-radius: var(--intro-radius);
   box-shadow:
     0 1.35rem 3.6rem rgba(36, 29, 27, 0.14),
     0 0 0 1px rgba(158, 63, 82, 0.08);
   isolation: isolate;
+  transform: translateZ(0);
 }
 
 .intro-embed::after {
@@ -161,8 +164,8 @@ body.site-ready .site-content {
   position: absolute;
   inset: 0;
   z-index: 1;
+  border: 1px solid rgba(255, 253, 251, 0.34);
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(255, 253, 251, 0.24);
   pointer-events: none;
 }
 
@@ -172,6 +175,9 @@ body.site-ready .site-content {
   width: 100%;
   height: 100%;
   border: 0;
+  border-radius: inherit;
+  background: #000;
+  transform: translateZ(0);
 }
 
 .intro-start {
