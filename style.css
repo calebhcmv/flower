@@ -675,6 +675,7 @@ h1 em {
 }
 
 .pause-img {
+  display: block;
   width: min(100%, 23rem);
   height: 8.7rem;
   margin: 0 auto;
