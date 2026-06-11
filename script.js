@@ -12,12 +12,13 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   const intro = document.getElementById('video-intro');
   const iframe = document.getElementById('intro-vimeo');
   const startButton = document.getElementById('intro-start');
+  const embed = intro?.querySelector('.intro-embed');
   const toggleButton = document.getElementById('intro-toggle');
   const progressButton = document.getElementById('intro-progress');
   const progressFill = document.getElementById('intro-progress-fill');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!intro || !iframe || !startButton || !toggleButton || !progressButton || !progressFill) {
+  if (!intro || !iframe || !startButton || !embed || !toggleButton || !progressButton || !progressFill) {
     body.classList.remove('intro-active');
     body.classList.add('site-ready');
     return;
@@ -28,6 +29,7 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   let loadFallback;
   let stallFallback;
   let safetyFallback;
+  let controlsFallback;
   let player;
   let videoDuration = 0;
 
@@ -35,6 +37,7 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     window.clearTimeout(loadFallback);
     window.clearTimeout(stallFallback);
     window.clearTimeout(safetyFallback);
+    window.clearTimeout(controlsFallback);
   };
 
   const revealSite = () => {
@@ -64,9 +67,31 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     progressButton.setAttribute('aria-valuenow', String(progressValue));
   };
 
+
+  const hideTransientControls = () => {
+    if (!intro.classList.contains('is-paused')) {
+      intro.classList.remove('is-controls-active');
+    }
+  };
+
+  const showTransientControls = () => {
+    if (!introStarted || introFinished) return;
+
+    intro.classList.add('is-controls-active');
+    window.clearTimeout(controlsFallback);
+    controlsFallback = window.setTimeout(hideTransientControls, 1400);
+  };
+
   const setPausedState = isPaused => {
     intro.classList.toggle('is-paused', isPaused);
     toggleButton.setAttribute('aria-label', isPaused ? 'Reproduzir vídeo' : 'Pausar vídeo');
+
+    if (isPaused) {
+      intro.classList.add('is-controls-active');
+      window.clearTimeout(controlsFallback);
+    } else {
+      hideTransientControls();
+    }
   };
 
   const startIntro = () => {
@@ -97,6 +122,14 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   };
 
   startButton.addEventListener('click', startIntro);
+
+  embed.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'touch') showTransientControls();
+  });
+
+  embed.addEventListener('pointerleave', hideTransientControls);
+
+  toggleButton.addEventListener('focus', showTransientControls);
 
   toggleButton.addEventListener('click', () => {
     if (!player || !introStarted) return;
