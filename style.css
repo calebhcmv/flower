@@ -178,11 +178,13 @@ body.site-ready .site-content {
   position: absolute;
   inset: 0;
   z-index: 2;
-  display: grid;
-  place-items: center;
-  gap: 0.78rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.72rem;
   border: 0;
-  padding: 1rem;
+  padding: 1rem 1rem clamp(1.65rem, 7vw, 2.8rem);
   background: rgba(36, 29, 27, 0.24);
   color: var(--surface);
   font: inherit;
