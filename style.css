@@ -668,6 +668,41 @@ h1 em {
   mask-image: radial-gradient(circle at center, #000 34%, transparent 76%);
 }
 
+
+.editorial-flower-portrait {
+  width: 140px;
+  height: 140px;
+  margin: 2rem auto 0;
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.editorial-flower-portrait-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+  mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+}
+
+.editorial-panorama {
+  width: 100%;
+  margin: 2rem auto 2.1rem;
+  overflow: hidden;
+}
+
+.editorial-panorama-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
 .poetic-pause {
   width: min(100%, var(--wide-max));
   margin: 0 auto;
@@ -829,7 +864,7 @@ h1 em {
   margin-top: 2.6rem;
   color: var(--primary-dark);
   font-family: 'Crimson Pro', serif;
-  font-size: clamp(2.05rem, 10.8vw, 3.6rem);
+  font-size: clamp(1.9rem, 7vw, 2.15rem);
   font-style: italic;
   font-weight: 300;
   line-height: 1.22;
@@ -840,7 +875,8 @@ h1 em {
   margin-top: 2.35rem;
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
   color: var(--text-secondary);
-  font-size: 0.82rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
   letter-spacing: 0.05em;
   line-height: 1.65;
 }
@@ -899,6 +935,8 @@ h1 em {
   .img-feather,
   .pause-img,
   .botanical-note-img,
+  .editorial-flower-portrait-img,
+  .editorial-panorama-img,
   .img-three,
   .meaning-bloom-soft,
   .watermark-bg {
