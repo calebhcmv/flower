@@ -12,9 +12,12 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   const intro = document.getElementById('video-intro');
   const iframe = document.getElementById('intro-vimeo');
   const startButton = document.getElementById('intro-start');
+  const toggleButton = document.getElementById('intro-toggle');
+  const progressButton = document.getElementById('intro-progress');
+  const progressFill = document.getElementById('intro-progress-fill');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!intro || !iframe || !startButton) {
+  if (!intro || !iframe || !startButton || !toggleButton || !progressButton || !progressFill) {
     body.classList.remove('intro-active');
     body.classList.add('site-ready');
     return;
@@ -26,6 +29,7 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   let stallFallback;
   let safetyFallback;
   let player;
+  let videoDuration = 0;
 
   const clearTimers = () => {
     window.clearTimeout(loadFallback);
@@ -52,10 +56,24 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     }, reduceMotion ? 80 : 1600);
   };
 
+  const updateProgress = percent => {
+    const safePercent = Math.max(0, Math.min(1, Number.isFinite(percent) ? percent : 0));
+    const progressValue = Math.round(safePercent * 100);
+
+    progressFill.style.transform = `scaleX(${safePercent})`;
+    progressButton.setAttribute('aria-valuenow', String(progressValue));
+  };
+
+  const setPausedState = isPaused => {
+    intro.classList.toggle('is-paused', isPaused);
+    toggleButton.setAttribute('aria-label', isPaused ? 'Reproduzir vídeo' : 'Pausar vídeo');
+  };
+
   const startIntro = () => {
     if (introStarted) return;
     introStarted = true;
     intro.classList.add('is-started');
+    setPausedState(false);
     startButton.disabled = true;
 
     if (!player) {
@@ -64,7 +82,10 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     }
 
     loadFallback = window.setTimeout(revealSite, 15000);
-    safetyFallback = window.setTimeout(revealSite, 60000);
+    safetyFallback = window.setTimeout(
+      revealSite,
+      videoDuration ? (videoDuration + 20) * 1000 : 600000
+    );
 
     player.setVolume(1)
       .catch(() => {})
@@ -77,6 +98,25 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
 
   startButton.addEventListener('click', startIntro);
 
+  toggleButton.addEventListener('click', () => {
+    if (!player || !introStarted) return;
+
+    player.getPaused()
+      .then(isPaused => (isPaused ? player.play() : player.pause()))
+      .catch(() => {});
+  });
+
+  progressButton.addEventListener('click', event => {
+    if (!player || !videoDuration) return;
+
+    const rect = progressButton.getBoundingClientRect();
+    const percent = (event.clientX - rect.left) / rect.width;
+    const safePercent = Math.max(0, Math.min(1, percent));
+
+    player.setCurrentTime(videoDuration * safePercent).catch(() => {});
+    updateProgress(safePercent);
+  });
+
   if (!window.Vimeo?.Player) {
     safetyFallback = window.setTimeout(revealSite, 90000);
     return;
@@ -88,6 +128,14 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
   player.on('error', revealSite);
   player.on('play', () => {
     window.clearTimeout(loadFallback);
+    setPausedState(false);
+  });
+  player.on('pause', () => {
+    if (!introFinished) setPausedState(true);
+  });
+  player.on('timeupdate', data => {
+    videoDuration = data.duration || videoDuration;
+    updateProgress(data.percent);
   });
   player.on('bufferstart', () => {
     window.clearTimeout(stallFallback);
@@ -97,7 +145,12 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
     window.clearTimeout(stallFallback);
   });
 
-  player.ready().catch(() => {
-    safetyFallback = window.setTimeout(revealSite, 12000);
-  });
+  player.ready()
+    .then(() => player.getDuration())
+    .then(duration => {
+      videoDuration = duration || 0;
+    })
+    .catch(() => {
+      safetyFallback = window.setTimeout(revealSite, 12000);
+    });
 })();

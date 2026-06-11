@@ -235,6 +235,118 @@ body.site-ready .site-content {
   transform: scale(1.015);
 }
 
+.intro-controls {
+  position: absolute;
+  left: clamp(0.82rem, 3.5vw, 1.15rem);
+  right: clamp(0.82rem, 3.5vw, 1.15rem);
+  bottom: clamp(0.82rem, 3.5vw, 1.15rem);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 2.35rem 1fr;
+  align-items: center;
+  gap: 0.7rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.45rem);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.video-intro.is-started .intro-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.intro-toggle,
+.intro-progress {
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.intro-toggle {
+  width: 2.35rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 253, 251, 0.92);
+  box-shadow: 0 0.7rem 1.9rem rgba(0, 0, 0, 0.16);
+}
+
+.intro-toggle:focus-visible,
+.intro-progress:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 0.18rem;
+}
+
+.intro-toggle-icon {
+  position: relative;
+  width: 0.72rem;
+  height: 0.88rem;
+}
+
+.intro-toggle-icon::before,
+.intro-toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0.24rem;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary-dark);
+}
+
+.intro-toggle-icon::before {
+  left: 0;
+}
+
+.intro-toggle-icon::after {
+  right: 0;
+}
+
+.video-intro.is-paused .intro-toggle-icon {
+  width: 0;
+  height: 0;
+  margin-left: 0.14rem;
+  border-block: 0.48rem solid transparent;
+  border-left: 0.74rem solid var(--primary-dark);
+}
+
+.video-intro.is-paused .intro-toggle-icon::before,
+.video-intro.is-paused .intro-toggle-icon::after {
+  content: none;
+}
+
+.intro-progress {
+  height: 1.35rem;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+.intro-progress-track {
+  position: relative;
+  width: 100%;
+  height: 0.42rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 253, 251, 0.46);
+  box-shadow: inset 0 0 0 1px rgba(255, 253, 251, 0.24);
+}
+
+.intro-progress-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.18s linear;
+}
+
 @media (min-width: 760px) {
   .intro-panel {
     width: min(78vw, 58rem);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Três gérberas</title>
+  <title>Te amo</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,26 @@
           <span class="intro-start-icon" aria-hidden="true"></span>
           <span>Toque para assistir com som</span>
         </button>
+
+        <div class="intro-controls" aria-label="Controles do vídeo">
+          <button type="button" class="intro-toggle" id="intro-toggle" aria-label="Pausar vídeo">
+            <span class="intro-toggle-icon" aria-hidden="true"></span>
+          </button>
+
+          <button
+            type="button"
+            class="intro-progress"
+            id="intro-progress"
+            aria-label="Avançar vídeo"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <span class="intro-progress-track" aria-hidden="true">
+              <span class="intro-progress-fill" id="intro-progress-fill"></span>
+            </span>
+          </button>
+        </div>
       </div>
 
       <p class="intro-note">O site será revelado ao final do vídeo.</p>
