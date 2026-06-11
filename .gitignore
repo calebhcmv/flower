@@ -1,0 +1,9 @@
+# Cloudflare Pages / Wrangler local files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# Image assets are supplied manually and should not be committed as binary files.
+/assets/
