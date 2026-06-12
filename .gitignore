@@ -5,7 +5,4 @@
 .env*
 !.env.example
 
-# Keep local asset scratch files out of git, but allow deployed site images.
-/assets/*
-!/assets/img/
-!/assets/img/**
+# Static images in /assets are deployed with Cloudflare Pages.

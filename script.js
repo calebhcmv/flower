@@ -12,21 +12,18 @@ const getEditorialImageFallbacks = image => {
   const source = image.getAttribute('src') || '';
   const fallback = image.dataset.fallbackSrc || '';
   const paths = [source, fallback].filter(Boolean);
+  const sourceParts = source.split('/').filter(Boolean);
+  const filename = sourceParts[sourceParts.length - 1] || '';
 
-  if (source.startsWith('/assets/img/')) {
-    paths.push(source.replace('/assets/img/', '/img/'));
-  }
-
-  if (source.startsWith('assets/img/')) {
-    paths.push(`/${source}`, source.replace('assets/img/', 'img/'), `/${source.replace('assets/img/', 'img/')}`);
-  }
-
-  if (source.startsWith('/img/')) {
-    paths.push(source.replace('/img/', '/assets/img/'));
-  }
-
-  if (source.startsWith('img/')) {
-    paths.push(`/${source}`, source.replace('img/', 'assets/img/'), `/${source.replace('img/', 'assets/img/')}`);
+  if (filename) {
+    paths.push(
+      `/assets/${filename}`,
+      `assets/${filename}`,
+      `/assets/img/${filename}`,
+      `assets/img/${filename}`,
+      `/img/${filename}`,
+      `img/${filename}`
+    );
   }
 
   return [...new Set(paths)];
@@ -59,7 +56,7 @@ document.querySelectorAll('[data-editorial-image]').forEach(image => {
 
   image.addEventListener('error', tryNextImageSource);
 
-  if (image.complete && image.naturalWidth === 0) {
+  if (image.complete && image.currentSrc && image.naturalWidth === 0) {
     tryNextImageSource();
   }
 });
