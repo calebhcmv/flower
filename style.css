@@ -611,15 +611,21 @@ h1 em {
 
 
 .editorial-photo {
+  position: relative;
+  z-index: 3;
+  display: block;
   width: 100%;
   margin: clamp(1.7rem, 7vw, 2.65rem) auto;
   pointer-events: none;
 }
 
 .editorial-photo img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 1;
+  visibility: visible;
 }
 
 .editorial-photo-orbit {
@@ -848,11 +854,41 @@ h1 em {
 
   .section-bloom-right {
     right: calc(50% - 28rem);
-    opacity: 0.085;
+    opacity: 0.16;
+  }
+
+  .editorial-photo-orbit {
+    width: 11.25rem;
+    height: 11.25rem;
+    opacity: 0.92;
+  }
+
+  .editorial-photo-letterpress {
+    width: min(100%, 25rem);
+    height: 10rem;
+    opacity: 0.84;
+  }
+
+  .editorial-photo-medallion {
+    width: 162px;
+    height: 162px;
+    opacity: 0.92;
+  }
+
+  .editorial-photo-fragment {
+    width: min(62%, 18rem);
+    height: 9.5rem;
+    opacity: 0.86;
+  }
+
+  .editorial-photo-panorama {
+    height: 156px;
+    opacity: 0.96;
   }
 
   .watermark-bg {
     right: calc(50% - 31rem);
+    opacity: 0.15;
   }
 }
 
