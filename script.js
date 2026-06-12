@@ -112,15 +112,31 @@ document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
       videoDuration ? (videoDuration + 20) * 1000 : 600000
     );
 
-    player.setVolume(1)
-      .catch(() => {})
-      .then(() => player.setMuted(false).catch(() => {}))
-      .then(() => player.play())
+    const soundRequests = [player.setVolume(1).catch(() => {})];
+
+    if (typeof player.setMuted === 'function') {
+      soundRequests.push(player.setMuted(false).catch(() => {}));
+    }
+
+    const playRequest = player.play();
+
+    playRequest
+      .then(() => Promise.allSettled(soundRequests))
+      .then(() => {
+        player.setVolume(1).catch(() => {});
+        if (typeof player.setMuted === 'function') {
+          player.setMuted(false).catch(() => {});
+        }
+      })
       .catch(() => {
+        introStarted = false;
+        intro.classList.remove('is-started');
+        startButton.disabled = false;
         safetyFallback = window.setTimeout(revealSite, 12000);
       });
   };
 
+  startButton.addEventListener('pointerup', startIntro);
   startButton.addEventListener('click', startIntro);
 
   embed.addEventListener('pointermove', event => {
