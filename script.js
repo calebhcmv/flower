@@ -13,20 +13,20 @@ const getEditorialImageFallbacks = image => {
   const fallback = image.dataset.fallbackSrc || '';
   const paths = [source, fallback].filter(Boolean);
 
-  if (source.startsWith('/assets/img/')) {
-    paths.push(source.replace('/assets/img/', '/img/'));
-  }
-
   if (source.startsWith('assets/img/')) {
     paths.push(`/${source}`, source.replace('assets/img/', 'img/'), `/${source.replace('assets/img/', 'img/')}`);
   }
 
+  if (source.startsWith('/assets/img/')) {
+    paths.push(source.slice(1), source.replace('/assets/img/', '/img/'));
+  }
+
   if (source.startsWith('/img/')) {
-    paths.push(source.replace('/img/', '/assets/img/'));
+    paths.push(source.replace('/img/', 'assets/img/'), source.replace('/img/', '/assets/img/'));
   }
 
   if (source.startsWith('img/')) {
-    paths.push(`/${source}`, source.replace('img/', 'assets/img/'), `/${source.replace('img/', 'assets/img/')}`);
+    paths.push(source.replace('img/', 'assets/img/'), `/${source}`, `/${source.replace('img/', 'assets/img/')}`);
   }
 
   return [...new Set(paths)];
