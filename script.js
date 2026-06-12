@@ -17,10 +17,10 @@ const getEditorialImageFallbacks = image => {
 
   if (filename) {
     paths.push(
-      `/assets/${filename}`,
-      `assets/${filename}`,
       `/assets/img/${filename}`,
       `assets/img/${filename}`,
+      `/assets/${filename}`,
+      `assets/${filename}`,
       `/img/${filename}`,
       `img/${filename}`
     );

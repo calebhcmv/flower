@@ -2884,6 +2884,323 @@ body.site-ready .site-content {
 }
 
 /* ─────────────────────────────────────────────
+   VIDEO INTRO
+───────────────────────────────────────────── */
+body.intro-active {
+  overflow: hidden;
+}
+
+.site-content {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.65rem);
+  transition:
+    opacity 1.15s ease,
+    transform 1.15s ease,
+    visibility 0s linear 1.15s;
+}
+
+body.site-ready .site-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0.18s, 0.18s, 0s;
+}
+
+.video-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding:
+    calc(env(safe-area-inset-top, 0px) + 1.15rem)
+    var(--pad-x)
+    calc(env(safe-area-inset-bottom, 0px) + 1.15rem);
+  background: var(--background);
+  opacity: 1;
+  transition:
+    opacity 1.35s ease,
+    visibility 0s linear 1.35s;
+}
+
+.video-intro.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-panel {
+  width: min(100%, 34rem);
+  display: grid;
+  gap: 0.82rem;
+  justify-items: center;
+}
+
+.intro-kicker,
+.intro-note {
+  color: var(--text-secondary);
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.intro-kicker {
+  color: var(--primary-dark);
+}
+
+.intro-note {
+  max-width: 24rem;
+  opacity: 0.74;
+}
+
+.intro-embed {
+  --intro-radius: clamp(0.85rem, 3.2vw, 1.45rem);
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  clip-path: inset(0 round var(--intro-radius));
+  background: #000;
+  border-radius: var(--intro-radius);
+  box-shadow:
+    0 1.35rem 3.6rem rgba(36, 29, 27, 0.14),
+    0 0 0 1px rgba(158, 63, 82, 0.08);
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.intro-embed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid rgba(255, 253, 251, 0.34);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.intro-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  background: #000;
+  transform: translateZ(0);
+}
+
+.intro-start {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  border: 0;
+  padding: clamp(1rem, 4vw, 1.35rem);
+  background: rgba(36, 29, 27, 0.24);
+  color: var(--surface);
+  font: inherit;
+  font-size: clamp(0.68rem, 2.9vw, 0.78rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    opacity 0.48s ease,
+    transform 0.48s ease,
+    background 0.25s ease;
+}
+
+.intro-start:hover,
+.intro-start:focus-visible {
+  background: rgba(36, 29, 27, 0.34);
+}
+
+.intro-start:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -0.45rem;
+}
+
+.intro-start-icon {
+  width: clamp(4.2rem, 18vw, 5.65rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 253, 251, 0.62);
+  border-radius: 999px;
+  background: rgba(255, 253, 251, 0.92);
+  box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.2);
+}
+
+.intro-start-icon::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 0.24rem;
+  border-block: 0.72rem solid transparent;
+  border-left: 1.08rem solid var(--primary-dark);
+}
+
+.video-intro.is-started .intro-start {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.015);
+}
+
+.intro-controls {
+  position: absolute;
+  left: clamp(0.82rem, 3.5vw, 1.15rem);
+  right: clamp(0.82rem, 3.5vw, 1.15rem);
+  bottom: clamp(0.82rem, 3.5vw, 1.15rem);
+  z-index: 3;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.45rem);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.video-intro.is-started .intro-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.intro-toggle,
+.intro-progress {
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.intro-toggle {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.62rem);
+  width: 2.35rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 253, 251, 0.92);
+  box-shadow: 0 0.7rem 1.9rem rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.28rem);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.video-intro.is-started.is-controls-active .intro-toggle,
+.video-intro.is-started .intro-embed:focus-within .intro-toggle,
+.video-intro.is-started.is-paused .intro-toggle {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.intro-toggle:focus-visible,
+.intro-progress:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 0.18rem;
+}
+
+.intro-toggle-icon {
+  position: relative;
+  width: 0.72rem;
+  height: 0.88rem;
+}
+
+.intro-toggle-icon::before,
+.intro-toggle-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0.24rem;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary-dark);
+}
+
+.intro-toggle-icon::before {
+  left: 0;
+}
+
+.intro-toggle-icon::after {
+  right: 0;
+}
+
+.video-intro.is-paused .intro-toggle-icon {
+  width: 0;
+  height: 0;
+  margin-left: 0.14rem;
+  border-block: 0.48rem solid transparent;
+  border-left: 0.74rem solid var(--primary-dark);
+}
+
+.video-intro.is-paused .intro-toggle-icon::before,
+.video-intro.is-paused .intro-toggle-icon::after {
+  content: none;
+}
+
+.intro-progress {
+  width: 100%;
+  min-width: 0;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.intro-progress-track {
+  position: relative;
+  width: 100%;
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 253, 251, 0.62);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 253, 251, 0.32),
+    0 0.32rem 1rem rgba(36, 29, 27, 0.18);
+}
+
+.intro-progress-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.18s linear;
+  will-change: transform;
+}
+
+@media (min-width: 760px) {
+  .intro-panel {
+    width: min(78vw, 58rem);
+    gap: 1rem;
+  }
+}
+
+/* ─────────────────────────────────────────────
    HERO
 ───────────────────────────────────────────── */
 .hero {
