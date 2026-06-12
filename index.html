@@ -69,24 +69,67 @@
 
   <div class="site-content" id="site-content">
     <header class="hero" aria-labelledby="hero-title">
-    <img
-      src="assets/gerbera-hero-pink-air.png"
-      alt=""
-      class="hero-img"
-      aria-hidden="true"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-    >
+    <svg class="hero-flowers" viewBox="0 0 280 190" aria-hidden="true" focusable="false">
+      <g class="flower-stems" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M88 74 C82 104 77 132 73 178" stroke="var(--green)" stroke-width="3" />
+        <path d="M140 58 C139 98 138 134 137 182" stroke="var(--green-dark)" stroke-width="3.4" />
+        <path d="M194 80 C199 111 205 140 211 179" stroke="var(--green)" stroke-width="3" />
+        <path d="M75 139 C53 126 43 119 31 104" stroke="var(--green-dark)" stroke-width="2.4" />
+        <path d="M78 143 C55 143 40 148 26 158" stroke="var(--green)" stroke-width="2.2" />
+        <path d="M139 134 C117 119 105 106 96 88" stroke="var(--green)" stroke-width="2.4" />
+        <path d="M139 143 C162 127 177 116 194 98" stroke="var(--green-dark)" stroke-width="2.4" />
+        <path d="M205 143 C222 130 236 120 254 114" stroke="var(--green-dark)" stroke-width="2.2" />
+      </g>
 
-    <img
-      src="assets/gerbera-red-cutout.png"
-      alt=""
-      class="hero-cutout"
-      aria-hidden="true"
-      loading="eager"
-      decoding="async"
-    >
+      <g class="hand-flower flower-left" transform="translate(86 66) scale(.88)">
+        <g fill="var(--primary-light)">
+          <ellipse rx="10" ry="27" transform="rotate(0) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(40) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(80) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(120) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(160) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(200) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(240) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(280) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(320) translate(0 -31)" />
+        </g>
+        <circle r="14" fill="var(--primary-strong)" />
+        <circle r="8" fill="var(--primary-dark)" opacity=".86" />
+      </g>
+
+      <g class="hand-flower flower-center" transform="translate(140 49) scale(1.05)">
+        <g fill="var(--primary)">
+          <ellipse rx="11" ry="31" transform="rotate(0) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(36) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(72) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(108) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(144) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(180) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(216) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(252) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(288) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(324) translate(0 -36)" />
+        </g>
+        <circle r="16" fill="var(--primary-strong)" />
+        <circle r="9" fill="var(--primary-dark)" opacity=".88" />
+      </g>
+
+      <g class="hand-flower flower-right" transform="translate(196 70) scale(.86)">
+        <g fill="var(--soft-pink)">
+          <ellipse rx="10" ry="27" transform="rotate(0) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(40) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(80) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(120) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(160) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(200) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(240) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(280) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(320) translate(0 -31)" />
+        </g>
+        <circle r="14" fill="var(--primary)" />
+        <circle r="8" fill="var(--primary-strong)" opacity=".86" />
+      </g>
+    </svg>
 
     <p class="eyebrow">Meu amor</p>
     <h1 id="hero-title">Deixa eu te contar<br>uma coisa.</h1>
@@ -106,7 +149,7 @@
 
     <section class="letter-section intro-section fade-in" aria-labelledby="sec-meu-amor">
       <img
-        src="assets/gerbera-red-cutout.png"
+        src="img/gerbera-red-cutout.png"
         alt=""
         class="section-bloom section-bloom-right"
         aria-hidden="true"
@@ -129,6 +172,10 @@
           Eu já fico quase morrendo por ter que ver minha namorada “só” três ou quatro vezes
           na semana — mesmo a gente ficando 24 horas juntos de alguma forma —, e, ainda assim,
           sentimos saudade.
+        </p>
+
+        <p class="prose">
+          Agora imagina em um tempo em que não existia WhatsApp.
         </p>
       </div>
     </section>
@@ -162,17 +209,6 @@
           Não tinha esse nosso jeito de estar perto, mesmo quando estamos longe.
         </p>
 
-        <figure class="editorial-fragment editorial-fragment-left fade-in">
-          <img
-            src="assets/gerbera-petal-close.png"
-            alt=""
-            class="img-feather img-petal"
-            aria-hidden="true"
-            loading="eager"
-            decoding="async"
-          >
-        </figure>
-
         <p class="prose">
           Mas existia uma coisa.
         </p>
@@ -188,17 +224,6 @@
         </p>
       </div>
     </section>
-
-    <div class="poetic-pause fade-in" aria-hidden="true">
-      <img
-        src="assets/gerbera-pink-focus.png"
-        alt=""
-        class="pause-img"
-        loading="eager"
-        decoding="async"
-      >
-    </div>
-
     <div class="divider fade-in" aria-hidden="true">
       <div class="divider-line"></div>
       <div class="divider-dot"></div>
@@ -224,15 +249,6 @@
           delas era ainda maior do que eu conhecia.
         </p>
 
-        <figure class="editorial-flower-portrait fade-in" aria-hidden="true">
-          <img
-            src="assets/pexels-enginakyurt-15119486.jpg"
-            alt=""
-            class="editorial-flower-portrait-img"
-            loading="eager"
-            decoding="async"
-          >
-        </figure>
       </div>
     </section>
 
@@ -299,16 +315,6 @@
           Mas descobri que esta flor se chama gérbera.
         </p>
 
-        <figure class="editorial-panorama fade-in" aria-hidden="true">
-          <img
-            src="assets/pexels-soc-nang-d-ng-2150345854-34946345.jpg"
-            alt=""
-            class="editorial-panorama-img"
-            loading="eager"
-            decoding="async"
-          >
-        </figure>
-
         <p class="prose">
           Quando eu a vi, mesmo sem saber de nada disso, enxerguei você nela. E, depois, quando
           descobri que ela significa amor, beleza e alegria, tive certeza de que esse seria o presente.
@@ -329,7 +335,7 @@
 
     <section class="final-section fade-in" aria-labelledby="sec-final">
       <img
-        src="assets/gerbera-final-bouquet.png"
+        src="img/gerbera-final-bouquet.png"
         alt=""
         class="watermark-bg"
         aria-hidden="true"
