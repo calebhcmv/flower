@@ -122,6 +122,7 @@ document.querySelectorAll('[data-editorial-image]').forEach(image => {
 
     progressFill.style.transform = `scaleX(${safePercent})`;
     progressButton.setAttribute('aria-valuenow', String(progressValue));
+    progressButton.setAttribute('aria-valuetext', `${progressValue}% do vídeo`);
   };
 
 
