@@ -3,33 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Três gérberas</title>
+  <title>Te amo</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <noscript>
+    <style>
+      .video-intro { display: none; }
+      .site-content { opacity: 1; visibility: visible; transform: none; }
+      body.intro-active { overflow: auto; }
+    </style>
+  </noscript>
 </head>
 
-<body>
-  <header class="hero" aria-labelledby="hero-title">
-    <img
-      src="assets/gerbera-hero-pink-air.jpg"
-      alt=""
-      class="hero-img"
-      aria-hidden="true"
-    >
+<body class="intro-active">
+  <section id="video-intro" class="video-intro" aria-label="Introdução em vídeo">
+    <div class="intro-panel">
+      <p class="intro-kicker">Ative o som</p>
 
-    <img
-      src="assets/gerbera-red-cutout.png"
-      alt=""
-      class="hero-cutout"
-      aria-hidden="true"
-    >
+      <div class="intro-embed">
+        <iframe
+          id="intro-vimeo"
+          class="intro-iframe"
+          src="https://player.vimeo.com/video/1200550143?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=intro-vimeo&amp;app_id=58479&amp;autoplay=0&amp;muted=0&amp;playsinline=1&amp;controls=0&amp;pip=0&amp;dnt=1"
+          title="Drawing"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+
+        <button type="button" class="intro-start" id="intro-start">
+          <span class="intro-start-icon" aria-hidden="true"></span>
+          <span>Toque para assistir com som</span>
+        </button>
+
+        <div class="intro-controls" aria-label="Controles do vídeo">
+          <button type="button" class="intro-toggle" id="intro-toggle" aria-label="Pausar vídeo">
+            <span class="intro-toggle-icon" aria-hidden="true"></span>
+          </button>
+
+          <button
+            type="button"
+            class="intro-progress"
+            id="intro-progress"
+            aria-label="Avançar vídeo"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <span class="intro-progress-track" aria-hidden="true">
+              <span class="intro-progress-fill" id="intro-progress-fill"></span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <p class="intro-note">O site será revelado ao final do vídeo.</p>
+    </div>
+  </section>
+
+  <div class="site-content" id="site-content">
+    <header class="hero" aria-labelledby="hero-title">
+    <svg class="hero-flowers" viewBox="0 0 280 190" aria-hidden="true" focusable="false">
+      <g class="flower-stems" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M88 74 C82 104 77 132 73 178" stroke="var(--green)" stroke-width="3" />
+        <path d="M140 58 C139 98 138 134 137 182" stroke="var(--green-dark)" stroke-width="3.4" />
+        <path d="M194 80 C199 111 205 140 211 179" stroke="var(--green)" stroke-width="3" />
+        <path d="M75 139 C53 126 43 119 31 104" stroke="var(--green-dark)" stroke-width="2.4" />
+        <path d="M78 143 C55 143 40 148 26 158" stroke="var(--green)" stroke-width="2.2" />
+        <path d="M139 134 C117 119 105 106 96 88" stroke="var(--green)" stroke-width="2.4" />
+        <path d="M139 143 C162 127 177 116 194 98" stroke="var(--green-dark)" stroke-width="2.4" />
+        <path d="M205 143 C222 130 236 120 254 114" stroke="var(--green-dark)" stroke-width="2.2" />
+      </g>
+
+      <g class="hand-flower flower-left" transform="translate(86 66) scale(.88)">
+        <g fill="var(--primary-light)">
+          <ellipse rx="10" ry="27" transform="rotate(0) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(40) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(80) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(120) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(160) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(200) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(240) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(280) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(320) translate(0 -31)" />
+        </g>
+        <circle r="14" fill="var(--primary-strong)" />
+        <circle r="8" fill="var(--primary-dark)" opacity=".86" />
+      </g>
+
+      <g class="hand-flower flower-center" transform="translate(140 49) scale(1.05)">
+        <g fill="var(--primary)">
+          <ellipse rx="11" ry="31" transform="rotate(0) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(36) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(72) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(108) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(144) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(180) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(216) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(252) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(288) translate(0 -36)" />
+          <ellipse rx="11" ry="31" transform="rotate(324) translate(0 -36)" />
+        </g>
+        <circle r="16" fill="var(--primary-strong)" />
+        <circle r="9" fill="var(--primary-dark)" opacity=".88" />
+      </g>
+
+      <g class="hand-flower flower-right" transform="translate(196 70) scale(.86)">
+        <g fill="var(--soft-pink)">
+          <ellipse rx="10" ry="27" transform="rotate(0) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(40) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(80) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(120) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(160) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(200) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(240) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(280) translate(0 -31)" />
+          <ellipse rx="10" ry="27" transform="rotate(320) translate(0 -31)" />
+        </g>
+        <circle r="14" fill="var(--primary)" />
+        <circle r="8" fill="var(--primary-strong)" opacity=".86" />
+      </g>
+    </svg>
 
     <p class="eyebrow">Meu amor</p>
-    <h1 id="hero-title">Uma história<br>antes de <em>nós</em>.</h1>
+    <h1 id="hero-title">Deixa eu te contar<br>uma coisa.</h1>
 
     <div class="scroll-hint" aria-hidden="true">
       <span>Continue lendo</span>
@@ -44,109 +147,35 @@
       <div class="divider-line"></div>
     </div>
 
-    <section class="letter-section intro-section fade-in" aria-labelledby="sec-antes">
+    <section class="letter-section intro-section fade-in" aria-labelledby="sec-meu-amor">
       <img
-        src="assets/gerbera-red-cutout.png"
+        src="img/gerbera-red-cutout.png"
         alt=""
         class="section-bloom section-bloom-right"
         aria-hidden="true"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       >
 
       <div class="wrap">
-        <span class="section-label" id="sec-antes">Antes de qualquer coisa</span>
+        <span class="section-label" id="sec-meu-amor">Meu amor,</span>
 
         <p class="prose">
-          Quero te contar uma história. Não sobre nós ainda — essa parte vem depois.
+          Já imaginou como era amar em um tempo em que não dava para mandar mensagem?
         </p>
 
         <p class="prose">
-          Sobre um tempo em que as pessoas amavam com a mesma intensidade de hoje,
-          sentiam saudade, queriam dizer coisas belas... mas nem sempre podiam.
+          Enquanto eu pensava em tudo para hoje, me peguei refletindo sobre isso.
         </p>
 
         <p class="prose">
-          Havia uma época em que certas palavras eram grandes demais para serem ditas
-          em voz alta. Um <em>"eu gosto de você"</em> soava ousado. Um <em>"sinto sua falta"</em>
-          revelava demais. E quando a voz não encontrava caminho, o coração inventou outro.
-        </p>
-      </div>
-    </section>
-
-    <div class="divider fade-in" aria-hidden="true">
-      <div class="divider-line"></div>
-      <div class="divider-dot"></div>
-      <div class="divider-line"></div>
-    </div>
-
-    <section class="letter-section fade-in" aria-labelledby="sec-flores">
-      <div class="wrap">
-        <span class="section-label" id="sec-flores">As flores</span>
-
-        <p class="prose">
-          Durante muito tempo, flores não foram apenas flores. Foram cartas escondidas
-          entre pétalas. Foram confissões que cabiam na palma de uma mão.
-        </p>
-
-        <figure class="editorial-fragment editorial-fragment-left fade-in">
-          <img
-            src="assets/gerbera-petal-close.jpg"
-            alt=""
-            class="img-feather img-petal"
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          >
-        </figure>
-
-        <p class="prose">
-          No século XIX, essa ideia ganhou forma nos chamados <strong>dicionários das flores</strong> —
-          livros criados para traduzir sentimentos que a língua teimava em não alcançar. Cada flor
-          carregava um significado. Cada cor mudava a intenção. Cada buquê dizia algo
-          completamente diferente para quem soubesse ler.
+          Eu já fico quase morrendo por ter que ver minha namorada “só” três ou quatro vezes
+          na semana — mesmo a gente ficando 24 horas juntos de alguma forma —, e, ainda assim,
+          sentimos saudade.
         </p>
 
         <p class="prose">
-          Era um idioma feito para dizer sem precisar falar.
-        </p>
-
-        <p class="prose">
-          E eu achei bonito demais não usar isso com você.
-        </p>
-      </div>
-    </section>
-
-    <div class="poetic-pause fade-in" aria-hidden="true">
-      <img
-        src="assets/gerbera-bouquet-soft.jpg"
-        alt=""
-        class="pause-img"
-        loading="lazy"
-        decoding="async"
-      >
-    </div>
-
-    <div class="divider fade-in" aria-hidden="true">
-      <div class="divider-line"></div>
-      <div class="divider-dot"></div>
-      <div class="divider-line"></div>
-    </div>
-
-    <section class="letter-section reason-section fade-in" aria-labelledby="sec-porque">
-      <div class="wrap">
-        <span class="section-label" id="sec-porque">Por que essas flores</span>
-
-        <p class="prose">
-          Porque, mesmo podendo te escrever uma mensagem, mesmo podendo dizer
-          <em>"eu te amo"</em> em qualquer lugar e a qualquer hora — eu queria que você
-          descobrisse. Queria que fosse um pequeno mistério. Queria que, antes de entender,
-          você sentisse.
-        </p>
-
-        <p class="prose">
-          Algumas declarações não precisam chegar correndo. Algumas merecem ser abertas
-          devagar, como uma carta antiga.
+          Agora imagina em um tempo em que não existia WhatsApp.
         </p>
       </div>
     </section>
@@ -157,36 +186,109 @@
       <div class="divider-line"></div>
     </div>
 
-    <section class="letter-section three-section fade-in" aria-labelledby="sec-tres">
+    <section class="letter-section fade-in" aria-labelledby="sec-distancia">
       <div class="wrap">
-        <span class="section-label" id="sec-tres">Três flores, três palavras</span>
+        <span class="section-label" id="sec-distancia">Quando estar longe era longe mesmo</span>
 
         <p class="prose">
-          Esse segredo começa com três flores. Não duas. Não quatro. <strong>Três.</strong>
-          Porque três flores carregam três palavras.
-        </p>
-
-        <figure class="three-photo fade-in">
-          <img
-            src="assets/gerbera-three-pink.jpg"
-            alt="Três gérberas rosadas"
-            class="img-three"
-            loading="lazy"
-            decoding="async"
-          >
-        </figure>
-
-        <p class="prose">
-          Mas eu não escolhi qualquer flor — escolhi gérberas. A gérbera não fala de um amor
-          pesado ou distante. Ela parece sorrir. Tem luz, tem cor, tem uma alegria simples
-          daquelas que transformam o ambiente sem pedir atenção — e é exatamente por isso
-          que ela me lembra você.
+          Não existia chamada de vídeo.
         </p>
 
         <p class="prose">
-          Você tem esse jeito. Muda os meus dias sem perceber. Deixa as coisas mais leves,
-          transforma momentos simples em momentos que eu quero guardar. Você não chegou
-          fazendo barulho. Mas mudou tudo.
+          Não existia celular.
+        </p>
+
+        <p class="prose">
+          Não existia internet.
+        </p>
+
+        <p class="prose">
+          Não tinha áudio de boa noite.<br>
+          Não tinha mensagem no meio do dia.<br>
+          Não tinha foto aleatória só para matar a saudade.<br>
+          Não tinha esse nosso jeito de estar perto, mesmo quando estamos longe.
+        </p>
+
+        <p class="prose">
+          Mas existia uma coisa.
+        </p>
+
+        <p class="prose">
+          Uma coisa que sempre existiu.<br>
+          Que nunca saiu de moda.<br>
+          E que, de algum jeito, sempre conseguiu unir corações.
+        </p>
+
+        <p class="prose">
+          Se tudo deu certo, você já deve estar segurando a sua agora.
+        </p>
+      </div>
+    </section>
+    <div class="divider fade-in" aria-hidden="true">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <section class="letter-section reason-section fade-in" aria-labelledby="sec-flores">
+      <div class="wrap">
+        <span class="section-label" id="sec-flores">Estou falando das flores.</span>
+
+        <p class="prose">
+          Flores são uma dessas coisas que Deus criou e que parecem ter nascido prontas para
+          fazer parte do amor.
+        </p>
+
+        <p class="prose">
+          Seja no aroma do perfume que você usa, seja nos buquês que te dou, ou nas paisagens
+          das nossas fotos.
+        </p>
+
+        <p class="prose">
+          Enquanto eu buscava e escolhia exatamente as flores que te daria, descobri que o significado
+          delas era ainda maior do que eu conhecia.
+        </p>
+
+      </div>
+    </section>
+
+    <div class="divider fade-in" aria-hidden="true">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <section class="letter-section fade-in" aria-labelledby="sec-historia">
+      <div class="wrap">
+        <span class="section-label" id="sec-historia">Uma linguagem antiga</span>
+
+        <p class="prose">
+          Há muito tempo, principalmente no século XIX, as flores não eram apenas presentes bonitos.
+        </p>
+
+        <p class="prose">
+          Elas eram mensagens.
+        </p>
+
+        <p class="prose">
+          Uma mulher conhecida como Madame Charlotte foi uma das mais famosas a escrever um
+          dicionário das flores na França.
+        </p>
+
+        <p class="prose">
+          De lá para cá, muita coisa aconteceu na história da humanidade.
+        </p>
+
+        <p class="prose">
+          Guerras, revoluções e mudanças.
+        </p>
+
+        <p class="prose">
+          Eu sei que História não é a sua matéria favorita.
+        </p>
+
+        <p class="prose">
+          Mas achei tudo isso lindo demais para não compartilhar com você.
         </p>
       </div>
     </section>
@@ -197,58 +299,31 @@
       <div class="divider-line"></div>
     </div>
 
-    <section class="letter-section meanings-section fade-in" aria-labelledby="sec-cada">
+    <section class="letter-section three-section fade-in" aria-labelledby="sec-gerbera">
       <div class="wrap">
-        <span class="section-label" id="sec-cada">Cada flor</span>
+        <span class="section-label" id="sec-gerbera">Por que você</span>
 
-        <div class="flower-meaning flower-meaning-red fade-in">
-          <div class="flower-card-number">01</div>
-          <p class="prose">
-            A primeira flor é pela alegria que você trouxe, pelas conversas que ficaram
-            melhores, pelos dias que ganharam mais cor só por você existir neles.
-          </p>
-          <img
-            src="assets/gerbera-red-cutout.png"
-            alt=""
-            class="meaning-bloom meaning-bloom-cutout"
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
+        <p class="prose">
+          E o que isso tem a ver com a gente?
+        </p>
 
-        <div class="flower-meaning flower-meaning-pink fade-in">
-          <div class="flower-card-number">02</div>
-          <p class="prose">
-            A segunda flor é pelo que eu sinto quando penso em nós. Pelo carinho que foi
-            crescendo sem pressa. Pela paz que sinto quando estou com você. Pela certeza
-            bonita de que ainda quero viver muita coisa ao seu lado.
-          </p>
-          <img
-            src="assets/gerbera-pink-focus.jpg"
-            alt=""
-            class="meaning-bloom meaning-bloom-soft"
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
+        <p class="prose">
+          Dentro do meu longo estudo, não descobri exatamente em qual desses dicionários está isso.
+        </p>
 
-        <div class="flower-meaning flower-meaning-gold fade-in">
-          <div class="flower-card-number">03</div>
-          <p class="prose">
-            A terceira é a mais simples de todas. Ela não precisa de dicionário.
-            Ela só existe para <em>completar a frase.</em>
-          </p>
-          <img
-            src="assets/gerbera-orange-single.jpg"
-            alt=""
-            class="meaning-bloom meaning-bloom-soft"
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          >
-        </div>
+        <p class="prose">
+          Mas descobri que esta flor se chama gérbera.
+        </p>
+
+        <p class="prose">
+          Quando eu a vi, mesmo sem saber de nada disso, enxerguei você nela. E, depois, quando
+          descobri que ela significa amor, beleza e alegria, tive certeza de que esse seria o presente.
+        </p>
+
+        <p class="prose">
+          O rosa simboliza leveza e gratidão, exatamente como eu sinto que é o seu amor por mim:
+          leve, seguro e perfeito. E sou muito grato por isso.
+        </p>
       </div>
     </section>
 
@@ -260,44 +335,26 @@
 
     <section class="final-section fade-in" aria-labelledby="sec-final">
       <img
-        src="assets/gerbera-final-bouquet.jpg"
+        src="img/gerbera-final-bouquet.png"
         alt=""
         class="watermark-bg"
         aria-hidden="true"
-        loading="lazy"
+        loading="eager"
         decoding="async"
       >
 
       <div class="wrap">
-        <span class="section-label" id="sec-final">A mensagem</span>
-
-        <p class="prose prose-spaced">
-          Essas três flores não estão aqui só para enfeitar. São uma mensagem — uma mensagem
-          que começou há muito tempo, quando as pessoas usavam flores para dizer aquilo que
-          a voz não conseguia carregar.
-        </p>
-
-        <p class="prose">
-          Hoje essa mensagem tem palavras. E eu quero dizê-las com calma, com intenção,
-          e com tudo que eu tenho.
-        </p>
+        <span class="section-label" id="sec-final">E o três significa:</span>
 
         <p class="final-prose">Eu.<br>Amo.<br>Você.</p>
 
-        <p class="signature">— com todo o cuidado do mundo,<br><strong>de mim pra você</strong></p>
+        <p class="signature">Com todo o cuidado do mundo,<br><strong>de Calebito para meu grudinho.</strong></p>
       </div>
     </section>
   </main>
+  </div>
 
-  <script>
-    const io = new IntersectionObserver(
-      entries => entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      }),
-      { threshold: 0.12 }
-    );
-
-    document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
-  </script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script src="/script.js?v=20260610"></script>
 </body>
 </html>
