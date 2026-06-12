@@ -16,14 +16,21 @@ const getEditorialImageFallbacks = image => {
   const filename = sourceParts[sourceParts.length - 1] || '';
 
   if (filename) {
-    paths.push(
-      `/assets/img/${filename}`,
-      `assets/img/${filename}`,
-      `/assets/${filename}`,
-      `assets/${filename}`,
-      `/img/${filename}`,
-      `img/${filename}`
-    );
+    const extensionMatch = filename.match(/^(.*)\.(png|jpe?g|webp)$/i);
+    const filenameVariants = extensionMatch
+      ? [filename, ...['jpg', 'jpeg', 'png', 'webp'].map(extension => `${extensionMatch[1]}.${extension}`)]
+      : [filename];
+
+    [...new Set(filenameVariants)].forEach(candidate => {
+      paths.push(
+        `/assets/img/${candidate}`,
+        `assets/img/${candidate}`,
+        `/assets/${candidate}`,
+        `assets/${candidate}`,
+        `/img/${candidate}`,
+        `img/${candidate}`
+      );
+    });
   }
 
   return [...new Set(paths)];
