@@ -1,14 +1,7 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "flower",
-  "compatibility_date": "2026-06-10",
-  "observability": {
-    "enabled": true
-  },
+  "compatibility_date": "2026-06-12",
   "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "directory": "./"
+  }
 }
