@@ -7,6 +7,25 @@ const io = new IntersectionObserver(
 
 document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
 
+
+const hideMissingEditorialImage = image => {
+  const editorialPhoto = image.closest('.editorial-photo');
+
+  if (editorialPhoto) {
+    editorialPhoto.classList.add('is-missing');
+  } else {
+    image.hidden = true;
+  }
+};
+
+document.querySelectorAll('[data-editorial-image]').forEach(image => {
+  image.addEventListener('error', () => hideMissingEditorialImage(image), { once: true });
+
+  if (image.complete && image.naturalWidth === 0) {
+    hideMissingEditorialImage(image);
+  }
+});
+
 (() => {
   const body = document.body;
   const intro = document.getElementById('video-intro');
