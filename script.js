@@ -8,6 +8,30 @@ const io = new IntersectionObserver(
 document.querySelectorAll('.fade-in').forEach(element => io.observe(element));
 
 
+const getEditorialImageFallbacks = image => {
+  const source = image.getAttribute('src') || '';
+  const fallback = image.dataset.fallbackSrc || '';
+  const paths = [source, fallback].filter(Boolean);
+
+  if (source.startsWith('/assets/img/')) {
+    paths.push(source.replace('/assets/img/', '/img/'));
+  }
+
+  if (source.startsWith('assets/img/')) {
+    paths.push(`/${source}`, source.replace('assets/img/', 'img/'), `/${source.replace('assets/img/', 'img/')}`);
+  }
+
+  if (source.startsWith('/img/')) {
+    paths.push(source.replace('/img/', '/assets/img/'));
+  }
+
+  if (source.startsWith('img/')) {
+    paths.push(`/${source}`, source.replace('img/', 'assets/img/'), `/${source.replace('img/', 'assets/img/')}`);
+  }
+
+  return [...new Set(paths)];
+};
+
 const hideMissingEditorialImage = image => {
   const editorialPhoto = image.closest('.editorial-photo');
 
@@ -19,10 +43,24 @@ const hideMissingEditorialImage = image => {
 };
 
 document.querySelectorAll('[data-editorial-image]').forEach(image => {
-  image.addEventListener('error', () => hideMissingEditorialImage(image), { once: true });
+  const fallbackPaths = getEditorialImageFallbacks(image);
+  let fallbackIndex = Math.max(0, fallbackPaths.indexOf(image.getAttribute('src')));
+
+  const tryNextImageSource = () => {
+    fallbackIndex += 1;
+
+    if (fallbackIndex < fallbackPaths.length) {
+      image.src = fallbackPaths[fallbackIndex];
+      return;
+    }
+
+    hideMissingEditorialImage(image);
+  };
+
+  image.addEventListener('error', tryNextImageSource);
 
   if (image.complete && image.naturalWidth === 0) {
-    hideMissingEditorialImage(image);
+    tryNextImageSource();
   }
 });
 

@@ -5,5 +5,7 @@
 .env*
 !.env.example
 
-# Image assets are supplied manually and should not be committed as binary files.
-/assets/
+# Keep local asset scratch files out of git, but allow deployed site images.
+/assets/*
+!/assets/img/
+!/assets/img/**
